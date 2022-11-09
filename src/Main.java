@@ -34,7 +34,7 @@ public class Main {
       basket.addToCart(productNumber, productCount);
     }
 
-    basket.saveTxt(new File("basket.txt"));
+    basket.saveTxt(file);
     basket.printCart();
 
   }
