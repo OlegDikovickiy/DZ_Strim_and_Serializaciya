@@ -4,16 +4,16 @@ import java.util.Scanner;
 public class Main {
 
 
-  public static void main(String[] args) throws Exception {
+  public static void main(String[] args) throws IOException, ClassNotFoundException {
     Scanner scanner = new Scanner(System.in);
 
     String[] products = {"Хлеб", "Молоко", "Яблоки"};
     int[] prices = {100, 200, 300};
     Basket basket;
 
-    File file = new File("basket.txt");
+    File file = new File("basket.bin");
     if (file.exists()) {
-      basket = Basket.loadFromTxtFile(file);
+      basket = Basket.loadFromBinFile(file);
     } else {
       basket = new Basket(products, prices);
     }
@@ -34,7 +34,7 @@ public class Main {
       basket.addToCart(productNumber, productCount);
     }
 
-    basket.saveTxt(new File("basket.txt"));
+    basket.saveBin(file);
     basket.printCart();
 
   }
