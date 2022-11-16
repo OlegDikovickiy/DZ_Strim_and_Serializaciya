@@ -1,3 +1,5 @@
+import com.google.gson.Gson;
+
 import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -66,6 +68,35 @@ public class Basket {
           .mapToInt(Integer::parseInt).toArray();
 
       return new Basket(products, prices, quantityProducts);
+    }
+  }
+
+  public void saveBin(File binFile) throws IOException {
+    try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(binFile))) {
+      out.writeObject(this);
+    }
+  }
+
+  public static Basket loadFromBinFile(File binFile) throws IOException, ClassNotFoundException {
+    try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(binFile))) {
+      Basket basket = (Basket) input.readObject();
+      return basket;
+    }
+  }
+
+  public void saveJson(File jsonFile) throws IOException {
+    try (PrintWriter out = new PrintWriter(new FileWriter(jsonFile))) {
+      Gson gson = new Gson();
+      String json = gson.toJson(this);
+      out.println(json);
+    }
+  }
+
+  public static Basket loadJson(File jsonFile) throws IOException {
+    try (Scanner scanner = new Scanner(jsonFile)) {
+      String json = scanner.nextLine();
+      Gson gson = new Gson();
+      return gson.fromJson(json, Basket.class);
     }
   }
 }
