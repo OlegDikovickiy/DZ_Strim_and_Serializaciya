@@ -59,7 +59,7 @@ public class Basket {
     }
   }
 
-  public static Basket loadFromTxtFile(File textFile) throws FileNotFoundException {
+  public static Basket loadTxtFile(File textFile) throws FileNotFoundException {
     try (Scanner scanner = new Scanner(new FileInputStream(textFile))) {
       String[] products = scanner.nextLine().split(" ");
       int[] prices = Arrays.stream(scanner.nextLine().split(" "))
